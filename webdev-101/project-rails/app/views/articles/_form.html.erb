@@ -1,0 +1,23 @@
+<%# Create a form for the object named @article, refer to the form by the name f and add the following elements %>
+<%= form_for(@article) do |f| %>
+  <ul>
+  <% @article.errors.full_messages.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
+  </ul>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.label :tag_list %><br />
+    <%= f.text_field :tag_list %><br />
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
