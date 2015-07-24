@@ -17,7 +17,7 @@
     <% legislators.each do |legislator| %>
       <tr>
         <td><%= "#{legislator.first_name} #{legislator.last_name}" %></td>
-        <td><%= "#{legislator.website}" %></td>
+        <td><%= "<a href='#{legislator.website}'>#{legislator.website}</a>" %></td>
       </tr>
     <% end %>
   </table>
