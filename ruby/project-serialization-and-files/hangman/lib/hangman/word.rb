@@ -8,7 +8,7 @@ module Hangman
     def initialize(word = dictionary_word, progress = nil, bad_guesses = [])
       word = word.join("") if word.is_a? Array
       @value = word.upcase.split("")
-      progress.nil? ? @progress = word.gsub(/\w/,"_").split("") : @progress = progress
+      progress.nil? ? @progress = word.gsub(/\w/,"_").split("") : @progress = progress.join("").upcase.split("")
       @bad_guesses = bad_guesses
     end
 
@@ -27,20 +27,20 @@ module Hangman
   end
 end
 
-k = Hangman::Word.new()
+# k = Hangman::Word.new()
 
-puts k.value.join(" ")
-puts k.progress.join(" ")
-puts k.bad_guesses.join(" ")
+# puts k.value.join(" ")
+# puts k.progress.join(" ")
+# puts k.bad_guesses.join(" ")
 
-f = Hangman::Word.new("Canada")
+# f = Hangman::Word.new("Canada")
 
-puts f.value.join(" ")
-puts f.progress.join(" ")
-puts f.bad_guesses.join(" ")
+# puts f.value.join(" ")
+# puts f.progress.join(" ")
+# puts f.bad_guesses.join(" ")
 
-g = Hangman::Word.new(["c","a","n","a","d","a"],["_","_","n","_","_","_"],["k"])
+# g = Hangman::Word.new(["c","a","n","a","d","a"],["_","_","n","_","_","_"],["k"])
 
-puts g.value.join(" ")
-puts g.progress.join(" ")
-puts g.bad_guesses.join(" ")
+# puts g.value.join(" ")
+# puts g.progress.join(" ")
+# puts g.bad_guesses.join(" ")
