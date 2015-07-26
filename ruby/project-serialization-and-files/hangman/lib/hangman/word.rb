@@ -8,10 +8,38 @@ module Hangman
     def initialize(word = dictionary_word, progress = nil, bad_guesses = [])
       word = word.join("") if word.is_a? Array
       @value = word.upcase.split("")
-      progress.nil? ? @progress = word.gsub(/\w/,"_").split("") : @progress = progress.join("").upcase.split("")
-      @bad_guesses = bad_guesses
+      progress.nil? ? @progress = word.upcase.gsub(/\w/,"_").split("") : @progress = progress.join("").upcase.split("")
+      @bad_guesses = bad_guesses.join("").upcase.split("")
     end
 
+    # Used for both save and load
+    SaveLocation = "data/save.txt"
+
+    # Save Word values to a txt file
+    def save
+      File.open(SaveLocation, 'w') do |file|
+        file.puts @value.join("")
+        file.puts @progress.join("")
+        file.puts @bad_guesses.join("")
+      end
+    end
+
+    # Load Word values from a txt file
+    def load
+      loaded = File.readlines(SaveLocation)
+      @value = loaded[0].upcase.split("")
+      @progress = loaded[1].upcase.split("")
+      @bad_guesses = loaded[2].upcase.split("")
+    end
+
+    def delete
+      File.delete(SaveLocation)
+    end
+
+    def save_exist?
+      File.file?(SaveLocation)
+    end
+      
     private
 
     # Get a random word from the dictionary, between 5 and 12 chars in length
@@ -21,9 +49,7 @@ module Hangman
       word
     end
 
-    # Save Word values to a yaml file
 
-    # Load Word values from a yaml file
   end
 end
 
@@ -39,8 +65,20 @@ end
 # puts f.progress.join(" ")
 # puts f.bad_guesses.join(" ")
 
-# g = Hangman::Word.new(["c","a","n","a","d","a"],["_","_","n","_","_","_"],["k"])
+g = Hangman::Word.new(["c","a","n","a","d","a"],["_","_","n","_","_","_"],["k"])
 
-# puts g.value.join(" ")
-# puts g.progress.join(" ")
-# puts g.bad_guesses.join(" ")
+puts g.value.join(" ")
+puts g.progress.join(" ")
+puts g.bad_guesses.join(" ")
+
+g.save
+puts ""
+g.load
+
+puts g.value.join(" ")
+puts g.progress.join(" ")
+puts g.bad_guesses.join(" ")
+
+puts g.save_exist?.to_s
+g.delete
+puts g.save_exist?.to_s
