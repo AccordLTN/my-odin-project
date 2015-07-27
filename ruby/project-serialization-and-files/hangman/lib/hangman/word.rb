@@ -11,11 +11,11 @@ module Hangman
     end
 
     # Used for both save and load
-    SaveLocation = "data/save.txt"
+    SAVELOCATION = "data/save.txt"
 
     # Save Word values to a txt file
     def save
-      File.open(SaveLocation, 'w') do |file|
+      File.open(SAVELOCATION, 'w') do |file|
         file.puts @value.join("")
         file.puts @progress.join("")
         file.puts @bad_guesses.join("")
@@ -24,7 +24,7 @@ module Hangman
 
     # # Load Word values from a txt file
     # def load_values
-    #   loaded = File.readlines(SaveLocation)
+    #   loaded = File.readlines(SAVELOCATION)
     #   @value = loaded[0].upcase.split("")
     #   @progress = loaded[1].upcase.split("")
     #   @bad_guesses = loaded[2].upcase.split("")
@@ -32,7 +32,7 @@ module Hangman
 
     # Load Word from a txt file, return Word object
     def self.load
-      loaded = File.readlines(SaveLocation)
+      loaded = File.readlines(SAVELOCATION)
       value = loaded[0].upcase.split("")
       progress = loaded[1].upcase.split("")
       bad_guesses = loaded[2].upcase.split("")
@@ -41,12 +41,12 @@ module Hangman
 
     # Delete save file
     def self.delete
-      File.delete(SaveLocation)
+      File.delete(SAVELOCATION)
     end
 
     # Return true if a save file exists, false otherwise
     def self.save_exist?
-      File.file?(SaveLocation)
+      File.file?(SAVELOCATION)
     end
       
     private
