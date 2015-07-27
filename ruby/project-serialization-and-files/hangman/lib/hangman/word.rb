@@ -1,5 +1,3 @@
-require "yaml"
-
 module Hangman
   class Word
     attr_accessor :value, :progress, :bad_guesses
@@ -24,19 +22,30 @@ module Hangman
       end
     end
 
-    # Load Word values from a txt file
-    def load
+    # # Load Word values from a txt file
+    # def load_values
+    #   loaded = File.readlines(SaveLocation)
+    #   @value = loaded[0].upcase.split("")
+    #   @progress = loaded[1].upcase.split("")
+    #   @bad_guesses = loaded[2].upcase.split("")
+    # end
+
+    # Load Word from a txt file, return Word object
+    def self.load
       loaded = File.readlines(SaveLocation)
-      @value = loaded[0].upcase.split("")
-      @progress = loaded[1].upcase.split("")
-      @bad_guesses = loaded[2].upcase.split("")
+      value = loaded[0].upcase.split("")
+      progress = loaded[1].upcase.split("")
+      bad_guesses = loaded[2].upcase.split("")
+      return Word.new(value, progress, bad_guesses)
     end
 
-    def delete
+    # Delete save file
+    def self.delete
       File.delete(SaveLocation)
     end
 
-    def save_exist?
+    # Return true if a save file exists, false otherwise
+    def self.save_exist?
       File.file?(SaveLocation)
     end
       
@@ -72,13 +81,25 @@ puts g.progress.join(" ")
 puts g.bad_guesses.join(" ")
 
 g.save
+
 puts ""
-g.load
+puts Hangman::Word.save_exist?.to_s
+puts ""
 
-puts g.value.join(" ")
-puts g.progress.join(" ")
-puts g.bad_guesses.join(" ")
+j = Hangman::Word.load
 
-puts g.save_exist?.to_s
-g.delete
-puts g.save_exist?.to_s
+puts j.value.join(" ")
+puts j.progress.join(" ")
+puts j.bad_guesses.join(" ")
+
+puts ""
+Hangman::Word.delete
+puts Hangman::Word.save_exist?.to_s
+
+# g.load_values
+
+# puts g.value.join(" ")
+# puts g.progress.join(" ")
+# puts g.bad_guesses.join(" ")
+# g.delete
+# puts g.save_exist?.to_s
