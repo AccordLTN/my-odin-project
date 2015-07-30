@@ -1,24 +1,31 @@
 require_relative "../lib/hangman.rb"
 
-puts "Welcome to Hangman!"
-puts ""
-# If savegame detected
-# puts "Incomplete game detected.  Would you like to continue? Y/N"
-# Hangman::Game.new(Hangman::Save.load)
-# Else
-Hangman::Game.new()
+puts "Welcome to Hangman!\n\n"
 
+keep_going = true
 
-
-# puts "Would a player like to supply the word or will a random one be chosen? Y/N"
-# response = gets.chomp
-# if response == "Y" || response == "Yes"
-#   word = " "
-#   while !(word =~ /$\w*^/)
-#     puts "Please supply your word, no special characters, no spaces:"
-#     word = gets.chomp
-#     Hangman::Game.new(word)
-#   end
-# else
-
-# end
+while keep_going
+  if Hangman::Word.save_exist?
+    puts "Game in progress detected.  Would you like to load it? Y/N"
+    response = gets.chomp.upcase
+    if response =~ /^Y/
+      Hangman::Game.new(Hangman::Word.load).play
+    end
+  else
+    puts "Would a player like to supply the word? Y/N"
+    response = gets.chomp.upcase
+    if response =~ /^Y/
+      word = " "
+      while !(word =~ /^[A-Z]+$/)
+        puts "Please supply your word, alphabet only:"
+        word = gets.chomp.upcase
+      end
+      Hangman::Game.new(Hangman::Word.new(word)).play
+    else
+      Hangman::Game.new.play
+    end
+  end
+  puts "Play again?"
+  response = gets.chomp.upcase
+  keep_going = false if !(response =~ /^Y/)
+end
