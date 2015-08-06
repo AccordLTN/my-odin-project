@@ -1,7 +1,7 @@
 require "socket"
 require_relative "./tiny_web_server/http_server.rb"
 
-base_path = "/Dropbox/Public/dev/the-odin-project/ruby/project-ruby-on-the-web/socket_programming/app"
+base_path = "/home/accordltn/Dropbox/Public/dev/the-odin-project/ruby/project-ruby-on-the-web/socket_programming/app"
 server = TCPServer.open(2000)
 puts "Server Online."
 
