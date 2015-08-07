@@ -14,6 +14,7 @@ class HttpServer
     src = nil
 
     begin
+      # if file doesn't exist or isn't a proper file, 404
       if File.exist?(@full_path) && File.file?(@full_path)
         # full_path should begin with base_path, else 404
         if @full_path.index(@base_path) == 0
@@ -25,11 +26,10 @@ class HttpServer
           end
           src = nil
         else
-          puts "403'd"
+          # is a 403, but send 404 anyway to throw off attacker
           @session.print not_found_response
         end
       else
-        puts "404'd"
         @session.print not_found_response
       end
     ensure
